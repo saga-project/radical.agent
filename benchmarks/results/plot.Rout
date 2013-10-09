@@ -1,0 +1,105 @@
+
+R version 2.15.2 (2012-10-26) -- "Trick or Treat"
+Copyright (C) 2012 The R Foundation for Statistical Computing
+ISBN 3-900051-07-0
+Platform: i386-apple-darwin9.8.0/i386 (32-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+[Previously saved workspace restored]
+
+> # Multiple plot function
+> #
+> # ggplot objects can be passed in ..., or to plotlist (as a list of ggplot objects)
+> # - cols:   Number of columns in layout
+> # - layout: A matrix specifying the layout. If present, 'cols' is ignored.
+> #
+> # If the layout is something like matrix(c(1,2,3,3), nrow=2, byrow=TRUE),
+> # then plot 1 will go in the upper left, 2 will go in the upper right, and
+> # 3 will go all the way across the bottom.
+> #
+> multiplot <- function(..., plotlist=NULL, file, cols=1, layout=NULL) {
++   require(grid)
++ 
++   # Make a list from the ... arguments and plotlist
++   plots <- c(list(...), plotlist)
++ 
++   numPlots = length(plots)
++ 
++   # If layout is NULL, then use 'cols' to determine layout
++   if (is.null(layout)) {
++     # Make the panel
++     # ncol: Number of columns of plots
++     # nrow: Number of rows needed, calculated from # of cols
++     layout <- matrix(seq(1, cols * ceiling(numPlots/cols)),
++                     ncol = cols, nrow = ceiling(numPlots/cols))
++   }
++ 
++  if (numPlots==1) {
++     print(plots[[1]])
++ 
++   } else {
++     # Set up the page
++     grid.newpage()
++     pushViewport(viewport(layout = grid.layout(nrow(layout), ncol(layout))))
++ 
++     # Make each plot, in the correct location
++     for (i in 1:numPlots) {
++       # Get the i,j matrix positions of the regions that contain this subplot
++       matchidx <- as.data.frame(which(layout == i, arr.ind = TRUE))
++ 
++       print(plots[[i]], vp = viewport(layout.pos.row = matchidx$row,
++                                       layout.pos.col = matchidx$col))
++     }
++   }
++ }
+> 
+> # Run with R CMD BATCH <filename.R>
+> library(ggplot2)
+> library(plyr)
+> 
+> pdf(width=14, height=7) 
+> 
+> data = read.csv("./data.csv")
+> data_mpirun = subset(data, mode=='mpirun')
+> 
+> p1 <- 
++     qplot(factor(numcores), agentruntime, data = subset(data, mode=='mpirun' | mode=='mpirun-noio'), geom = "boxplot", outlier.size = 1) + 
++     ggtitle("Impact of core count on agent performance (MPIRUN)") + 
++     ylab("Agent runtime (s)") +
++     xlab("Number of cores managed")
+> 
+> p2 <- 
++     qplot(factor(numcores), agentruntime, data = subset(data, mode=='ssh'), geom = "boxplot", outlier.size = 1) + 
++     ggtitle("Impact of core count on agent performance (SSH)") + 
++     ylab("Agent runtime (s)") +
++     xlab("Number of cores managed")
+> 
+> multiplot(p1, p2, cols=2)
+Loading required package: grid
+> dev.off
+function (which = dev.cur()) 
+{
+    if (which == 1) 
+        stop("cannot shut down device 1 (the null device)")
+    .Internal(dev.off(as.integer(which)))
+    dev.cur()
+}
+<bytecode: 0x3be1cf4>
+<environment: namespace:grDevices>
+> 
+> proc.time()
+   user  system elapsed 
+  1.029   0.025   1.044 

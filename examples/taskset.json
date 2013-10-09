@@ -1,0 +1,10 @@
+[
+  {
+    "type":"taskset", 
+    "instances": 16, 
+    "template": 
+    {
+      "type":"task", "id": "set_1-task_",   "executable": "/bin/hostname", "arguments": ["-f"], "requirements": {"cores": 1}
+    }
+  }
+]
