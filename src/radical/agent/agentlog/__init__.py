@@ -5,4 +5,4 @@ __author__    = "Ole Weidner"
 __copyright__ = "Copyright 2013, Ole Weidner"
 __license__   = "MIT"
 
-from rhythmos.agent.agentlog.drivers.local import LocalAgentLog
+from radical.agent.agentlog.agent_log import AgentLog

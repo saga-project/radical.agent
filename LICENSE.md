@@ -1,4 +1,4 @@
-rhythmos.agent is licensed under the MIT License (MIT)
+radical.agent is licensed under the MIT License (MIT)
 ------------------------------------------------------
 
 Copyright (C) 2013 by RADICAL Group at Rutgers University  

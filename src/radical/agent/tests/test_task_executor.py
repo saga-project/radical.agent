@@ -12,7 +12,7 @@ import Queue
 import tempfile
 import unittest
 
-from rhythmos.agent import Task, TaskQueue, ResultQueue, TaskExecutor, ExecutionEnvironment
+from radical.agent import Task, TaskQueue, ResultQueue, TaskExecutor, ExecutionEnvironment
 
 
 #-----------------------------------------------------------------------------

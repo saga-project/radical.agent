@@ -9,7 +9,7 @@ import os
 import psutil
 import hostlist
 
-from rhythmos.common.utils import which
+from radical.common.utils import which
 from constants import *
 
 LOG_SUFFIX = 'env'

@@ -11,7 +11,7 @@ import unittest
 import threading
 import multiprocessing
 
-from rhythmos.agent import Task, TaskQueue
+from radical.agent import Task, TaskQueue
 
 
 #-----------------------------------------------------------------------------

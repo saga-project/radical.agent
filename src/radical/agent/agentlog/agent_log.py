@@ -5,10 +5,10 @@ __author__    = "Ole Weidner"
 __copyright__ = "Copyright 2013, Ole Weidner"
 __license__   = "MIT"
 
-from rhythmos.common.utils import Url
-from rhythmos.agent import AgentException
+from radical.common.utils import Url
+from radical.agent import AgentException
 
-from rhythmos.agent.agentlog.drivers import LocalAgentLog
+from radical.agent.agentlog.drivers import LocalAgentLog
 
 #-----------------------------------------------------------------------------
 #

@@ -5,7 +5,7 @@
 # Copyright 2013, Ole Weidner
 # License under the MIT License
 #
-# This script launches a rhythmos compute / data resource agent. 
+# This script launches a radical compute / data resource agent. 
 # The launch steps are as follows:
 #
 # (1) x
@@ -28,7 +28,7 @@ usage()
 cat << EOF
 usage: $0 options
 
-This script launches a rhythmos resource agent.
+This script launches a radical resource agent.
 
 OPTIONS:
    -r      Address and port of the coordination service host
@@ -47,10 +47,10 @@ EOF
 #
 makeworkdir()
 {
-R_BASE_DIR=$WORKDIR/.rhythmos/
+R_BASE_DIR=$WORKDIR/.radical/
 if [ ! -d $R_BASE_DIR ] 
 then
-    echo "`date +"%m-%d-%Y %T"` - [run-rhythmos-agent.sh] (INFO) - Creating base directory: $R_BASE_DIR"
+    echo "`date +"%m-%d-%Y %T"` - [run-radical-agent.sh] (INFO) - Creating base directory: $R_BASE_DIR"
     mkdir -p $R_BASE_DIR
 fi
 }
@@ -60,28 +60,28 @@ fi
 #
 installvenv()
 {
-R_SYS_DIR=$WORKDIR/.rhythmos/sys/
+R_SYS_DIR=$WORKDIR/.radical/sys/
 # remove any old versionsion
 if [ -d $R_SYS_DIR ] 
 then
-    echo "`date +"%m-%d-%Y %T"` - [run-rhythmos-agent.sh] (INFO) - Removing previous virtualenv: $R_SYS_DIR"
+    echo "`date +"%m-%d-%Y %T"` - [run-radical-agent.sh] (INFO) - Removing previous virtualenv: $R_SYS_DIR"
     rm -r $R_SYS_DIR
 fi
 # create a fresh virtualenv
-echo "`date +"%m-%d-%Y %T"` - [run-rhythmos-agent.sh] (INFO) - Bootstraping a fresh virtualenv from https://raw.github.com/pypa/virtualenv"
+echo "`date +"%m-%d-%Y %T"` - [run-radical-agent.sh] (INFO) - Bootstraping a fresh virtualenv from https://raw.github.com/pypa/virtualenv"
 curl --insecure -s https://raw.github.com/pypa/virtualenv/master/virtualenv.py | $PYTHON - --python=$PYTHON $R_SYS_DIR
 source $R_SYS_DIR/bin/activate
-echo "`date +"%m-%d-%Y %T"` - [run-rhythmos-agent.sh] (INFO) - Installing Python packages: saga-python, requests"
+echo "`date +"%m-%d-%Y %T"` - [run-radical-agent.sh] (INFO) - Installing Python packages: saga-python, requests"
 pip install saga-python requests
 }
 
 # -----------------------------------------------------------------------------
-# launch the rhythmos agent 
+# launch the radical agent 
 #
 launchagent()
 {
-echo "`date +"%m-%d-%Y %T"` - [run-rhythmos-agent.sh] (INFO) - Starting rhythmos-agent.py..."
-python ./rhythmos-agent.py -r $REMOTE -t OTPTOKEN
+echo "`date +"%m-%d-%Y %T"` - [run-radical-agent.sh] (INFO) - Starting radical-agent.py..."
+python ./radical-agent.py -r $REMOTE -t OTPTOKEN
 }
 
 # -----------------------------------------------------------------------------
@@ -120,11 +120,11 @@ then
      exit 1
 fi
 
-echo "`date +"%m-%d-%Y %T"` - [run-rhythmos-agent.sh] (INFO) - Starting RHYTHMOS environment setup."
+echo "`date +"%m-%d-%Y %T"` - [run-radical-agent.sh] (INFO) - Starting RHYTHMOS environment setup."
 # create working direcotries
 makeworkdir
 # bootstrap virtualenv
 installvenv
-echo "`date +"%m-%d-%Y %T"` - [run-rhythmos-agent.sh] (INFO) - Completed RHYTHMOS environment setup. "
+echo "`date +"%m-%d-%Y %T"` - [run-radical-agent.sh] (INFO) - Completed RHYTHMOS environment setup. "
 launchagent
 

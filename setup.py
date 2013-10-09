@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
-"""Setup for rhythmos.agent package
+"""Setup for radical.agent package
 """
 
 __author__    = "Ole Weidner"
@@ -25,7 +25,7 @@ def update_version():
 
     try:
         cwd = os.path.dirname(os.path.abspath(__file__))
-        fn = os.path.join(cwd, 'src/rhythmos/agent/VERSION')
+        fn = os.path.join(cwd, 'src/radical/agent/VERSION')
         version = open(fn).read().strip()
     except IOError:
         from subprocess import Popen, PIPE, STDOUT
@@ -54,7 +54,7 @@ if sys.hexversion < 0x02050000:
 
 #-----------------------------------------------------------------------------
 # 
-class rhythmos_agent_install_data(install_data):
+class radical_agent_install_data(install_data):
     """
     Defines the installation install_data
     """
@@ -67,18 +67,18 @@ class rhythmos_agent_install_data(install_data):
     def run(self):
         install_data.run(self)
         # ensure there's a saga/VERSION file
-        fn = os.path.join(self.install_dir, 'src/rhythmos/agent/', 'VERSION')
+        fn = os.path.join(self.install_dir, 'src/radical/agent/', 'VERSION')
         open(fn, 'w').write(update_version())
         self.outfiles.append(fn)
 
 #-----------------------------------------------------------------------------
 # 
-class rhythmos_agent_sdist(sdist):
+class radical_agent_sdist(sdist):
 
     def make_release_tree(self, base_dir, files):
         sdist.make_release_tree(self, base_dir, files)
 
-        fn = os.path.join(base_dir, 'src/rhythmos/agent/', 'VERSION')
+        fn = os.path.join(base_dir, 'src/radical/agent/', 'VERSION')
         open(fn, 'w').write(update_version())
 
 
@@ -89,14 +89,14 @@ def read(*rnames):
 
 #-----------------------------------------------------------------------------
 #
-setup(name='rhythmos.agent',
+setup(name='radical.agent',
       version=update_version(),
       author='Ole Weidner',
       author_email='ole.weidner@icloud.com',
       description="Pilot agent for the Rhythmos framework",
       long_description=(read('README.rst') + '\n\n' + read('CHANGES.rst')),
       license='MIT',
-      keywords="rhythmos agent",
+      keywords="radical agent",
       classifiers = [
           'Development Status :: 5 - Production/Stable',
           'Environment :: Web Environment',
@@ -110,28 +110,28 @@ setup(name='rhythmos.agent',
           'Operating System :: OS Independent',
           'Topic :: Internet :: WWW/HTTP',
           'Framework :: Rhythmos'],
-      url='https://github.com/oweidner/rhythmos.agent',
+      url='https://github.com/oweidner/radical.agent',
       packages=find_packages('src'),
       package_dir = {'': 'src'},
-      namespace_packages=['rhythmos'],
-      scripts=['bin/rhythmos-agent',
-               'bin/rhythmos-node-monitor',
-               'bin/rhythmos-process-wrapper'],
-      #dependency_links=['https://github.com/oweidner/rhythmos.common/zipball/master#egg=rhythmos.common'],
+      namespace_packages=['radical'],
+      scripts=['bin/radical-agent',
+               'bin/radical-node-monitor',
+               'bin/radical-process-wrapper'],
+      #dependency_links=['https://github.com/oweidner/radical.common/zipball/master#egg=radical.common'],
       install_requires=['setuptools',
                         'psutil',
                         'colorama',
                         'python-hostlist'
-                        #'rhythmos.common'
+                        #'radical.common'
                         ],
       #extras_require=dict(
       #test=['zope.testing >= 3.8']),
-      test_suite = 'rhythmos.agent.tests',
+      test_suite = 'radical.agent.tests',
       package_data = {'': ['*.sh']},
       include_package_data = True,
       zip_safe = False,
       cmdclass = {
-          'install_data': rhythmos_agent_install_data,
-          'sdist': rhythmos_agent_sdist
+          'install_data': radical_agent_install_data,
+          'sdist': radical_agent_sdist
       },
 )

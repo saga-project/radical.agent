@@ -7,7 +7,7 @@ __license__   = "MIT"
 
 import os
 import json
-from rhythmos.agent import Task
+from radical.agent import Task
 
 
 DRIVER = "JSONFile"

@@ -1,4 +1,4 @@
-Changelog for ``rhythmos.agent``
+Changelog for ``radical.agent``
 ================================
 
 0.1.0 (2013-05-12)

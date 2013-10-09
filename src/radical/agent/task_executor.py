@@ -13,7 +13,7 @@ import subprocess
 import multiprocessing
 
 from constants import *
-from rhythmos.agent import Task
+from radical.agent import Task
 
 #-----------------------------------------------------------------------------
 #
@@ -132,8 +132,8 @@ class _ProcessLauncher(object):
         elif self.launch_method == LAUNCH_METHOD_LOCAL:
             pass
 
-        # launch through rhythmos process wrapper
-        cmdline += " rhythmos-process-wrapper -- "
+        # launch through radical process wrapper
+        cmdline += " radical-process-wrapper -- "
 
         # task executable and arguments
         cmdline += " %s " % task.executable
@@ -351,7 +351,7 @@ class _TaskExecutorWorker(multiprocessing.Process):
 
         nodemon_task = Task(
             uid='nodemon-%s' % self.hostname,
-            executable='rhythmos-node-monitor',
+            executable='radical-node-monitor',
             arguments=['--workdir=%s' % self.nodemon_dir_name],
             numcores='1',
             stdout=None,

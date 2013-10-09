@@ -5,8 +5,8 @@ __author__    = "Ole Weidner"
 __copyright__ = "Copyright 2013, Ole Weidner"
 __license__   = "MIT"
 
-from rhythmos.common.utils import Url
-from rhythmos.agent.tasksource.drivers import JSONFile
+from radical.common.utils import Url
+from radical.agent.tasksource.drivers import JSONFile
 
 #-----------------------------------------------------------------------------
 #

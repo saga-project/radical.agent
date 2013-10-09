@@ -10,12 +10,12 @@ import os
 import uuid
 import Queue
 
-from rhythmos.agent import Task, TaskQueue, TaskExecutor, ExecutionEnvironment
+from radical.agent import Task, TaskQueue, TaskExecutor, ExecutionEnvironment
 
-from rhythmos.agent.agentlog import AgentLog
-from rhythmos.agent.tasksource import TaskSource
-from rhythmos.agent.taskevents import TaskEvents
-from rhythmos.agent.taskresults import TaskResults
+from radical.agent.agentlog import AgentLog
+from radical.agent.tasksource import TaskSource
+from radical.agent.taskevents import TaskEvents
+from radical.agent.taskresults import TaskResults
 
 
 #-----------------------------------------------------------------------------

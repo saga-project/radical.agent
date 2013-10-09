@@ -19,13 +19,13 @@ from GitHub directly:
 Command-Line Invocation
 -----------------------
 
-While rhythmos.agents are meant to be deployed automatically by a pilot provisioning mechanism, they can be used independently. In this _usage mode_ they pretty much behave like an _original_ Pilot Job, i.e., providing late-binding on a single HPC system. 
+While radical.agents are meant to be deployed automatically by a pilot provisioning mechanism, they can be used independently. In this _usage mode_ they pretty much behave like an _original_ Pilot Job, i.e., providing late-binding on a single HPC system. 
 
-The agent executable (which is installed via the `rhythmos.agent` package) is invoked on the command line. The `--help` option shows the command-line options:
+The agent executable (which is installed via the `radical.agent` package) is invoked on the command line. The `--help` option shows the command-line options:
 
 ```bash
-rhythmos-agent --help
-Usage: rhythmos-agent [options]
+radical-agent --help
+Usage: radical-agent [options]
 
 Options:
   -h, --help            show this help message and exit
@@ -108,7 +108,7 @@ Alternatively, you can define a task set instead of individual tasks. A task set
 Next, invoke the agent to execute the workload:
 
 ```bash
-rhythmos-agent --task-source=file:////`pwd`/input.json  --task-results=file:////`pwd`/results.json
+radical-agent --task-source=file:////`pwd`/input.json  --task-results=file:////`pwd`/results.json
 ```
 
 You will see the agent starting to work, executing the tasks from `input.json`. Events will show up on the console, since --task-events=file:///dev/stdout is the default:
@@ -121,28 +121,28 @@ You will see the agent starting to work, executing the tasks from `input.json`. 
 Results will end up in a file called `results.json`. The result set for each task looks like this:
 
 ```json
-{"cmdline": "/usr/local/bin/mpirun -np 1 -host localhost /bin/hostname  -f ", "working_directory": "/Users/oweidner/Projects/RHYTHMOS/rhythmos.agent/task-16", "stderr": "/Users/oweidner/Projects/RHYTHMOS/rhythmos.agent/task-16/STDERR", "task_id": "16", "stdout": "/Users/oweidner/Projects/RHYTHMOS/rhythmos.agent/task-16/STDOUT", "execution_location": ["localhost"], "start_time": "2013-07-11 10:03:54.763593", "type": "result", "exit_code": 0, "stop_time": "2013-07-11 10:03:55.768100"}
+{"cmdline": "/usr/local/bin/mpirun -np 1 -host localhost /bin/hostname  -f ", "working_directory": "/Users/oweidner/Projects/RHYTHMOS/radical.agent/task-16", "stderr": "/Users/oweidner/Projects/RHYTHMOS/radical.agent/task-16/STDERR", "task_id": "16", "stdout": "/Users/oweidner/Projects/RHYTHMOS/radical.agent/task-16/STDOUT", "execution_location": ["localhost"], "start_time": "2013-07-11 10:03:54.763593", "type": "result", "exit_code": 0, "stop_time": "2013-07-11 10:03:55.768100"}
 ```
 
-If no working directory is defined for a task, rhythmos.agent creates a subdirectory `task-<task_id>` in the agent's working directory (can be controlled via `--workdir=`). Note that rhythmos.agent will fail if you invoke the same command line a second time since the task-* directories already exist.
+If no working directory is defined for a task, radical.agent creates a subdirectory `task-<task_id>` in the agent's working directory (can be controlled via `--workdir=`). Note that radical.agent will fail if you invoke the same command line a second time since the task-* directories already exist.
 
-rhythmos.agent can (or at least tries to) detect the number of cores and nodes that are available for execution. It can also detect things like MPI. So if you, for example, run the above example on an 8-core system, you will see that rhythmos.agent processes the tasks in batches of 8. Future versions will allow to change that behavior, but that's still work in progress.
+radical.agent can (or at least tries to) detect the number of cores and nodes that are available for execution. It can also detect things like MPI. So if you, for example, run the above example on an 8-core system, you will see that radical.agent processes the tasks in batches of 8. Future versions will allow to change that behavior, but that's still work in progress.
 
 **On a Cluster**
 
-You can try to launch a rhythmos.agent via PBS to see how it can marshal multiple nodes. Wrapping everything in a simple PBS script (here for india.futuregrid.org) is sufficient.
+You can try to launch a radical.agent via PBS to see how it can marshal multiple nodes. Wrapping everything in a simple PBS script (here for india.futuregrid.org) is sufficient.
 
 ```bash
 #PBS
-#PBS -N rhythmos
-#PBS -e rhythmos.err 
-#PBS -o rhythmos.out 
+#PBS -N radical
+#PBS -e radical.err 
+#PBS -o radical.out 
 #PBS -l nodes=2:ppn=1 
 #PBS -q batch
 
-source /N/u/oweidner/rhythmos/bin/activate
+source /N/u/oweidner/radical/bin/activate
 
-rhythmos-agent \
+radical-agent \
 -w /N/u/oweidner/tmp/ \
 -t file:///N/u/oweidner/16_bfast_tasks.json \
 -r file:///N/u/oweidner/tmp/results.json \

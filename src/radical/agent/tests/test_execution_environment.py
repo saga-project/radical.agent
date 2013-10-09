@@ -10,7 +10,7 @@ import psutil
 import tempfile
 import unittest
 
-from rhythmos.agent import ExecutionEnvironment
+from radical.agent import ExecutionEnvironment
 
 
 #-----------------------------------------------------------------------------

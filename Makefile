@@ -6,7 +6,7 @@ docs:
 	make -C docs html
 
 clean:
-	-rm -rf build/ dist/ rhythmos*.egg-info/ temp/
+	-rm -rf build/ dist/ radical*.egg-info/ temp/
 	-rm -rf `find . -name \*.egg-info`
 	-rm -rf `find . -name \*.egg`
 	-rm -rf `find . -name \*.pyc`

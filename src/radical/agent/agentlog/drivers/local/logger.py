@@ -11,7 +11,7 @@ __license__   = "MIT"
 
 import logging
 
-from rhythmos.common.utils import Singleton
+from radical.common.utils import Singleton
 
 from filehandler import FileHandler
 from defaultformatter import DefaultFormatter
@@ -123,7 +123,7 @@ def getLogger (suffix):
     created; subsequent calls to this method with the same name argument will
     return the same instance.'''
 
-    name = 'rhythmos.agent'
+    name = 'radical.agent'
     if suffix is not None:
         name += '.%s' % suffix
 

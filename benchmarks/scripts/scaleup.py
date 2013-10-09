@@ -65,7 +65,7 @@ def main():
 ]""" % str(cores*4)
                 )
 
-            # create a saga-job that launches a rhythmos-agent 
+            # create a saga-job that launches a radical-agent 
             try: 
                 js = saga.job.Service("slurm://localhost")
 
@@ -76,7 +76,7 @@ def main():
                
                 jd.queue             = QUEUE
                 jd.project           = ALLOCATION
-                jd.executable        = '/home1/00988/tg802352/software/bin/run-rhythmos-agent'
+                jd.executable        = '/home1/00988/tg802352/software/bin/run-radical-agent'
                 jd.arguments         = ["--task-source=file://localhost//%s" % workload_filename , 
                                         "--task-results=file://localhost//%s/results.json" % working_directory,
                                         "--task-events=file://localhost//%s/events.json" % working_directory, 
@@ -85,22 +85,22 @@ def main():
                 jd.error             = "agent.err"
 
                 # Create a new job from the job description
-                rhythmos_instance = js.create_job(jd)
+                radical_instance = js.create_job(jd)
 
                 # Now we can start our job.
                 print "\nStarting Rhythmos Agent"
-                rhythmos_instance.run()
-                print "  * Job ID      : %s" % (rhythmos_instance.id)
-                print "  * Job state   : %s" % (rhythmos_instance.state)
+                radical_instance.run()
+                print "  * Job ID      : %s" % (radical_instance.id)
+                print "  * Job state   : %s" % (radical_instance.state)
                 # wait for our job to complete
-                rhythmos_instance.wait()
-                print "  * Job state   : %s" % (rhythmos_instance.state)
+                radical_instance.wait()
+                print "  * Job state   : %s" % (radical_instance.state)
 
             except saga.SagaException, ex:
                 # Catch all saga exceptions
                 print "An exception occured: (%s) %s " % (ex.type, (str(ex)))
                 print " \n*** Backtrace:\n %s" % ex.traceback
-                rhythmos_instance.cancel()
+                radical_instance.cancel()
                 return 1
 
 if __name__ == "__main__":
