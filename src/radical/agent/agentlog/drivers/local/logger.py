@@ -11,7 +11,7 @@ __license__   = "MIT"
 
 import logging
 
-from radical.common.utils import Singleton
+from radical.utils import Singleton
 
 from filehandler import FileHandler
 from defaultformatter import DefaultFormatter

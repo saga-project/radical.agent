@@ -5,7 +5,7 @@ __author__    = "Ole Weidner"
 __copyright__ = "Copyright 2013, Ole Weidner"
 __license__   = "MIT"
 
-from radical.common.utils import Url
+from radical.utils import Url
 from radical.agent.taskevents.drivers import JSONFile
 
 #-----------------------------------------------------------------------------

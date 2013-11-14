@@ -119,6 +119,7 @@ setup(name='radical.agent',
                'bin/radical-process-wrapper'],
       #dependency_links=['https://github.com/oweidner/radical.common/zipball/master#egg=radical.common'],
       install_requires=['setuptools',
+                        'radical.utils',
                         'psutil',
                         'colorama',
                         'python-hostlist'
