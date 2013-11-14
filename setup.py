@@ -92,9 +92,9 @@ def read(*rnames):
 setup(name='radical.agent',
       version=update_version(),
       author='Ole Weidner',
-      author_email='ole.weidner@icloud.com',
+      author_email='ole.weidner@rutgers.edy',
       description="Pilot agent for the Rhythmos framework",
-      long_description=(read('README.md') + '\n\n' + read('CHANGES.md')),
+      long_description=(read('README.md') + '\n\n' + read('CHANGES.rst')),
       license='MIT',
       keywords="radical agent",
       classifiers = [
