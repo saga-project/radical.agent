@@ -7,6 +7,8 @@ __license__   = "MIT"
 
 from radical.utils import Url
 from radical.agent.taskevents.drivers import JSONFile
+from radical.agent.taskevents.drivers import SAGAPilot
+
 
 #-----------------------------------------------------------------------------
 #
@@ -41,6 +43,10 @@ class TaskEvents(object):
 
             if ts_url.scheme == "file":
                 driver = JSONFile(self.log, ts_url)
+                self.log.info("Successfully loaded task events driver '%s'" % driver.__class__.__name__)
+                return driver
+            elif ts_url.scheme == "sagapilot":
+                driver = SAGAPilot(self.log, ts_url)
                 self.log.info("Successfully loaded task events driver '%s'" % driver.__class__.__name__)
                 return driver
             else:

@@ -7,6 +7,7 @@ __license__   = "MIT"
 
 from radical.utils import Url
 from radical.agent.tasksource.drivers import JSONFile
+from radical.agent.tasksource.drivers import SAGAPilot
 
 #-----------------------------------------------------------------------------
 #
@@ -39,6 +40,10 @@ class TaskSource(object):
 
             if ts_url.scheme == "file":
                 driver = JSONFile(self.log, ts_url)
+                self.log.info("Successfully loaded task source driver '%s'" % driver.__class__.__name__)
+                return driver
+            elif ts_url.scheme == "sagapilot":
+                driver = SAGAPilot(self.log, ts_url)
                 self.log.info("Successfully loaded task source driver '%s'" % driver.__class__.__name__)
                 return driver
             else:
