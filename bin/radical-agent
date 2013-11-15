@@ -52,10 +52,10 @@ def parse_commandline():
                       help='Specifies the location where to publish the task results. [default: %default]',
                       default='file:///dev/stdout')
 
-    parser.add_option('-e', '--task-events',
+    parser.add_option('-e', '--events',
                       metavar='URL',
                       dest='task_events_url',
-                      help='Specifies the location where to publish the task events. [default: %default]',
+                      help='Specifies the location where to publish events. [default: %default]',
                       default='file:///dev/stdout')
 
     parser.add_option('-m', '--task-metrics',
