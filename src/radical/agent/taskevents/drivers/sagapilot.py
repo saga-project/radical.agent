@@ -45,7 +45,7 @@ class SAGAPilot(object):
 
     #-------------------------------------------------------------------------
     #
-    def put(self, task_id, event, value):
+    def put(self, origin, event, value):
         ''' Publish a new task event.
         '''
         # synchronize file access

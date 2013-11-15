@@ -69,22 +69,6 @@ def parse_commandline():
                       help='Specifies the location where to publish agent log data. [default: %default]',
                       default='file:///dev/stderr')
 
-    saga_pilot_opts = optparse.OptionGroup(
-        parser, 'SAGA-Pilot Options', 'These options are for integration with SAGA-Pilot',
-    )
-    saga_pilot_opts.add_option('--dbconnect', 
-                              metavar='URL',
-                              dest='dbconnect_url',
-                              help='The MongoDB URL')
-
-    saga_pilot_opts.add_option('--uid', 
-                              metavar='UID',
-                              dest='agent_id',
-                              help='The UID of this agent.')
-
-    parser.add_option_group(saga_pilot_opts)
-
-
     execution_opts = optparse.OptionGroup(
         parser, 'Execution Options', 'These options control task execution',
     )

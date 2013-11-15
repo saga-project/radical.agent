@@ -110,6 +110,9 @@ class RhythmosAgent(object):
         # Try tp load a dirver for task events
         self.task_events = self._init_task_events(task_events)
 
+        # All drivers loaded. Try to set the status to 'ACTIVE'.
+        self.task_events.put("1", "1", "1")
+
         # Discover the execution environment
         ee = ExecutionEnvironment.discover(logger=self.log)
 

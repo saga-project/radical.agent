@@ -56,7 +56,7 @@ class TaskEvents(object):
 
     #-------------------------------------------------------------------------
     #
-    def put(self, task_id, event, value):
+    def put(self, origin, event, value):
         ''' Publish a new task event.
         '''
         return self._driver.put(task_id, event, value)

@@ -43,7 +43,7 @@ class JSONFile(object):
 
     #-------------------------------------------------------------------------
     #
-    def put(self, task_id, event, value):
+    def put(self, origin, event, value):
         ''' Publish a new task event.
         '''
         # synchronize file access
@@ -53,7 +53,7 @@ class JSONFile(object):
             result = {
                 'type': 'event',
                 'timestamp': str(datetime.datetime.now()),
-                'task_id': task_id,
+                'task_id': origin,
                 'event': event,
                 'value': value
             }
