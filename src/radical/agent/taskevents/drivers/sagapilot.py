@@ -9,6 +9,7 @@ from cgi import parse_qs
 import json
 import datetime
 import threading
+from pymongo import MongoClient
 
 from radical.utils import Url
 
@@ -23,13 +24,15 @@ class SAGAPilot(object):
     def __init__(self, logger, task_results_url):
         """
         """
-        url = Url(task_results_url)
-        print url
+        self.log = logger
 
         # extract hostname, session uid and agent uid from 
         # the url.
+        url = Url(task_results_url)
+
+        self.db_name     = None
         self.session_uid = None
-        self.agent_uid = None
+        self.agent_uid   = None
 
         for key, val in parse_qs(url.query).iteritems():
             print "%s -- %s" % (key, val)
@@ -37,21 +40,16 @@ class SAGAPilot(object):
                 self.session_uid = val[0]
             if key == 'agent':
                 self.agent_uid = val[0]
+            if key == 'dbname':
+                self.db_name = val[0]
 
-        if self.session_uid is None or self.agent_uid is None:
-            raise Exception("URL doesn't define 'session' or 'agent'.")
+        if self.session_uid is None or self.agent_uid is None or self.db_name is None:
+            raise Exception("--event URL doesn't define 'session', 'agent' or 'dbname'")
 
-        # # extract the file path and open the file
-        # # and read the task data
-        # self._tasks = list()
-        # self.log = logger
-
-        # self.file_path = task_results_url.path
-        # # a global lock so file access can be synchronized
-        # self._putlock = threading.Lock()
-
-        # self.log.info("%s: Successfully created/opened events file '%s'" % (DRIVER, self.file_path))
-
+        # connect to MongoDB
+        self._client = MongoClient(url)
+        self._db     = self._client[self.db_name]
+  
     #-------------------------------------------------------------------------
     #
     def __del__(self):
