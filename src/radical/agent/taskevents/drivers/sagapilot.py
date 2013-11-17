@@ -9,7 +9,9 @@ from cgi import parse_qs
 import json
 import datetime
 import threading
+
 from pymongo import MongoClient
+from bson.objectid import ObjectId
 
 from radical.utils import Url
 
@@ -26,24 +28,24 @@ class SAGAPilot(object):
         """
         self.log = logger
 
-        # extract hostname, session uid and agent uid from 
+        # extract hostname, session uid and pilot uid from 
         # the url.
         url = Url(task_results_url)
 
         self.db_name     = None
         self.session_uid = None
-        self.agent_uid   = None
+        self.pilot_uid   = None
 
         for key, val in parse_qs(url.query).iteritems():
             if key == 'session':
                 self.session_uid = val[0]
-            if key == 'agent':
-                self.agent_uid = val[0]
+            if key == 'pilot':
+                self.pilot_uid = val[0]
             if key == 'dbname':
                 self.db_name = val[0]
 
-        if self.session_uid is None or self.agent_uid is None or self.db_name is None:
-            raise Exception("--event URL doesn't define 'session', 'agent' or 'dbname'")
+        if self.session_uid is None or self.pilot_uid is None or self.db_name is None:
+            raise Exception("--event URL doesn't define 'session', 'pilot' or 'dbname'")
 
         # connect to MongoDB
         mongodb_url = "mongodb://%s" % url.host
@@ -52,6 +54,9 @@ class SAGAPilot(object):
 
         self._client = MongoClient(str(mongodb_url))
         self._db     = self._client[self.db_name]
+
+        # pilot collection
+        self._p  = self._db["%s.p"  % self.session_uid]
   
     #-------------------------------------------------------------------------
     #
@@ -64,6 +69,14 @@ class SAGAPilot(object):
     def close(self):
         # nothing to do
         pass
+
+    #-------------------------------------------------------------------------
+    #
+    def put_pilot_statechange(self, newstate):
+
+        # Update the status
+        self._p.update({"_id": ObjectId(self.pilot_uid)}, 
+                       {"$set": {"info.state" : newstate}})
 
     #-------------------------------------------------------------------------
     #

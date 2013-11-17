@@ -111,7 +111,7 @@ class RhythmosAgent(object):
         self.task_events = self._init_task_events(task_events)
 
         # All drivers loaded. Try to set the status to 'ACTIVE'.
-        self.task_events.put("1", "1", "1")
+        self.task_events.put_pilot_statechange("Running")
 
         # Discover the execution environment
         ee = ExecutionEnvironment.discover(logger=self.log)
