@@ -110,7 +110,7 @@ class RhythmosAgent(object):
         # Try tp load a dirver for task events
         self.task_events = self._init_task_events(task_events)
 
-        # All drivers loaded. Try to set the status to 'ACTIVE'.
+        # All drivers loaded. Try to set the status to 'RUNNING'.
         self.task_events.put_pilot_statechange("Running")
 
         # Discover the execution environment
@@ -147,3 +147,6 @@ class RhythmosAgent(object):
 
         te.start()
         te.join()
+
+        # Finally, set the status to 'DONE'.
+        self.task_events.put_pilot_statechange("Done")
