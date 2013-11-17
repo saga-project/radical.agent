@@ -35,7 +35,6 @@ class SAGAPilot(object):
         self.agent_uid   = None
 
         for key, val in parse_qs(url.query).iteritems():
-            print "%s -- %s" % (key, val)
             if key == 'session':
                 self.session_uid = val[0]
             if key == 'agent':
@@ -47,7 +46,11 @@ class SAGAPilot(object):
             raise Exception("--event URL doesn't define 'session', 'agent' or 'dbname'")
 
         # connect to MongoDB
-        self._client = MongoClient(url)
+        mongodb_url = "mongodb://%s" % url.host
+        if url.port is not None:
+            mongodb_url += ":%s" % url.port
+
+        self._client = MongoClient(str(mongodb_url))
         self._db     = self._client[self.db_name]
   
     #-------------------------------------------------------------------------
