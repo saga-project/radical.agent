@@ -64,7 +64,7 @@ class TaskEvents(object):
     def put_pilot_statechange(self, newstate):
         """Publish an agent state change event.
         """
-        return self._driver.put_pilot_statechange(origin, newstate)
+        return self._driver.put_pilot_statechange(newstate)
 
     #-------------------------------------------------------------------------
     #
