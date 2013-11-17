@@ -5,9 +5,12 @@ __author__    = "Ole Weidner"
 __copyright__ = "Copyright 2013, Ole Weidner"
 __license__   = "MIT"
 
+from cgi import parse_qs
 import json
 import datetime
 import threading
+
+from radical.utils import Url
 
 DRIVER = "SAGAPilot"
 
@@ -20,6 +23,24 @@ class SAGAPilot(object):
     def __init__(self, logger, task_results_url):
         """
         """
+        url = Url(task_results_url)
+        print url
+
+        # extract hostname, session uid and agent uid from 
+        # the url.
+        self.session_uid = None
+        self.agent_uid = None
+
+        for key, val in parse_qs(url.query).iteritems():
+            print "%s -- %s" % (key, val)
+            if key == 'session':
+                self.session_uid = val[0]
+            if key == 'agent':
+                self.agent_uid = val[0]
+
+        if self.session_uid is None or self.agent_uid is None:
+            raise Exception("URL doesn't define 'session' or 'agent'.")
+
         # # extract the file path and open the file
         # # and read the task data
         # self._tasks = list()
